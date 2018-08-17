@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 export class CongresspersonList extends Component {
     state = {
         house: "Representatives",
-        congresspersons: []
     }
 
     render() {
-        const { house, congresspersons } = this.state;
+        const { house } = this.state;
+        const { congresspersons, setCongressperson } = this.props;
         return (
             <div>
                 <h2>List / <span style={{
@@ -23,7 +23,9 @@ export class CongresspersonList extends Component {
                     <tbody>
                     {
                         congresspersons.map((congressperson, idx) => (
-                            <tr key={idx}>
+                            <tr
+                            onClick={() => setCongressperson(congressperson)}
+                            key={idx}>
                                 <td>{ congressperson.name }</td>
                                 <td>{ congressperson.party }</td>
                             </tr>

@@ -1,20 +1,43 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 export class CongresspersonSearch extends Component {
+    fetchCongresspersons = async (searchQuery) => {
+        try {
+            const { house, state } = searchQuery;
+            const response = await axios.get(`http://localhost:3000/${house}/${state}`);
+            const { data } = response;
+            const { results } = data;
+            return results;
+        } catch (error) {
+            console.error(error);
+        }
+    }
     render() {
+        const { setCongresspersons } = this.props;
         return (
             <div>
-                <form>
-                    <div class="form-group">
+                <form
+                onSubmit={async (e) => {
+                    e.preventDefault();
+                    const searchQuery = {
+                        house: e.target[0].value,
+                        state: e.target[1].value
+                    };
+                    const congresspersons = await this.fetchCongresspersons(searchQuery);
+                    setCongresspersons(congresspersons);
+                }}
+                >
+                    <div className="form-group">
                         <label>House</label>
-                        <select class="form-control" name="house">
+                        <select className="form-control" name="house">
                             <option>Representatives</option>
                             <option>Senators</option>
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label>State</label>
-                        <select class="form-control" name="state">
+                        <select className="form-control" name="state">
                         <option value="AL">Alabama</option>
                         <option value="AK">Alaska</option>
                         <option value="AZ">Arizona</option>
@@ -68,7 +91,7 @@ export class CongresspersonSearch extends Component {
                         <option value="WY">Wyoming</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                    <button type="submit" className="btn btn-primary mb-2">Submit</button>
                 </form>
             </div>
         );

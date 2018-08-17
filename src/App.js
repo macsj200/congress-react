@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { CongresspersonSearch } from './components/CongresspersonSearch';
 import { CongresspersonList } from './components/CongresspersonList';
 import { CongresspersonDetail } from './components/CongresspersonDetail';
 
-
 class App extends Component {
+  state = {
+    congresspersons: [],
+    congressperson: {}
+  }
+  setCongresspersons = congresspersons => this.setState({ congresspersons });
+  setCongressperson = congressperson => this.setState({ congressperson });
   render() {
+    const { congresspersons, congressperson } = this.state;
     return (
         <div className="container">
           <div className="row">
@@ -23,15 +28,15 @@ class App extends Component {
           </div>
           <div className="row">
               <div className="col-sm">
-                <CongresspersonSearch />
+                <CongresspersonSearch setCongresspersons={this.setCongresspersons} />
               </div>
           </div>
           <div className="row">
               <div className="col-sm">
-                <CongresspersonList />
+                <CongresspersonList congresspersons={congresspersons} setCongressperson={this.setCongressperson} />
               </div>
               <div className="col-sm">
-                <CongresspersonDetail />
+                <CongresspersonDetail congressperson={congressperson} />
               </div>
           </div>
         </div>
