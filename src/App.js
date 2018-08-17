@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import { CongresspersonSearch } from './components/CongresspersonSearch';
 import { CongresspersonList } from './components/CongresspersonList';
+import { CongresspersonDetail } from './components/CongresspersonDetail';
+
 
 class App extends Component {
   render() {
@@ -29,7 +31,7 @@ class App extends Component {
                 <CongresspersonList />
               </div>
               <div className="col-sm">
-                {/* <CongresspersonDetail /> */}
+                <CongresspersonDetail />
               </div>
           </div>
         </div>
